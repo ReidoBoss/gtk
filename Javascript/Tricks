@@ -49,6 +49,19 @@
 
   numberArray.push('hello');  // Throws Error: Only number types are allowed in this array.
 
+},
+{
+  "title" : "Higher Level Functions",
+    const sort = (...args) => {
+    return [...args].toSorted()
+  }
+
+  function functor(f){
+    return (...args) => {
+      return f(args)
+    }
+  }
+  console.log(functor(sort)(1,2,3,4,5))
 
 }
 
