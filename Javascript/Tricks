@@ -20,6 +20,36 @@
   const test = {test2: {cat:"cat"}}
 
   console.log(test.keys())
+},
+{
+  "title": "Creating a Typed Array",
+  function createTypedArray(type) {
+    const arr = [];
+
+    return {
+      push(item) {
+        if (typeof item !== type) {
+          throw new Error(`Only ${type} types are allowed in this array.`);
+        }
+        arr.push(item);
+      },
+      getArray() {
+        return arr;
+      }
+    };
+  }
+
+  // Usage
+  const numberArray = createTypedArray('number');
+
+  numberArray.push(10);  // Works
+  numberArray.push(20);  // Works
+
+  console.log(numberArray.getArray()); // Output: [10, 20]
+
+  numberArray.push('hello');  // Throws Error: Only number types are allowed in this array.
+
+
 }
 
 
