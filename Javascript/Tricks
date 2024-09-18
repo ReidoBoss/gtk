@@ -1,0 +1,25 @@
+{
+  source: "https://www.shecodes.io/athena/86817-what-does-mean-in-javascript#google_vignette",
+
+  //transforming string into char array in a smaller and readable way
+  const str = "qwertyui"
+  console.log([...str])
+
+  // Concatenating arrays
+  const arr1 = [1, 2, 3];
+  const arr2 = [4, 5, 6];
+  const mergedArray = [...arr1, ...arr2];
+  console.log(mergedArray); // [1, 2, 3, 4, 5, 6]
+
+},
+{
+  //extension object just like in scala
+  Object.prototype.keys = function() {
+    return Object.keys(this)
+  }
+  const test = {test2: {cat:"cat"}}
+
+  console.log(test.keys())
+}
+
+
