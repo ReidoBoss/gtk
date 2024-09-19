@@ -63,6 +63,41 @@
   }
   console.log(functor(sort)(1,2,3,4,5))
 
+},
+{
+  "title": "Case class equivalent in javascript",
+    class Person {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+      Object.freeze(this); // Makes the object immutable
+    }
+
+    toString() {
+      return `Person(${this.name}, ${this.age})`;
+    }
+
+    // Manually implement equality check
+    equals(other) {
+      return other instanceof Person &&
+             this.name === other.name &&
+             this.age === other.age;
+    }
+
+    // Manually implement a "copy" method
+    copy(newFields) {
+      return new Person(
+        newFields.name || this.name,
+        newFields.age || this.age
+      );
+    }
+  }
+
+  const person1 = new Person('John', 30);
+  console.log(person1.toString()); // "Person(John, 30)"
+  const person2 = person1.copy({ age: 31 });
+  console.log(person2.toString()); // "Person(John, 31)"
+
 }
 
 
