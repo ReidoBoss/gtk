@@ -1,0 +1,31 @@
+# This is basic implementation of Path Bindable so that we could use classes in the routes.
+## Note: Unfortunately, In scala 3, opaque types aren't recognized as classes in compile time so this is unusable for opaque types. 
+
+### Givens
+```scala
+given PathBindable[IdWorkspace] with
+      def bind(key: String, value: String): Either[String, IdWorkspace] =
+        try Right(IdWorkspace(UUID.fromString(value)))
+        catch case _: IllegalArgumentException => Left(s"Invalid UUID: $value")
+
+      def unbind(key: String, id: IdWorkspace): String =
+        id.value.toString
+```
+### Implicit def
+```scala
+    implicit def pathBindable: PathBindable[IdWorkspace] =
+      new PathBindable[IdWorkspace] {
+        override def bind(
+            key: String,
+            value: String
+        ): Either[String, IdWorkspace] =
+          Try(UUID.fromString(value)) match
+            case Success(id) => Right(id)
+            case Failure(_)  => Left("Invalid IdWorkspace")
+
+        override def unbind(key: String, value: IdWorkspace): String =
+          value.value.toString
+      }
+```
+
+
